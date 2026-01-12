@@ -2,111 +2,157 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { motion } from "framer-motion";
+import { Star } from "lucide-react";
 
-const testimonials = [
+// --- DATA ---
+const reviews = [
   {
-    name: "Alex Rivera",
-    role: "CMO, TechFlow",
-    quote: "Doubled our leads in 30 days.",
-    image: "https://github.com/shadcn.png",
+    name: "Sarah Jenkins",
+    role: "L&D Manager",
+    content:
+      "The interactive scenarios are a hit with the staff. Completion rates are up 40%.",
   },
   {
-    name: "Sarah Chen",
-    role: "Founder, Bloom",
-    quote: "The best investment we made.",
-    image: "https://github.com/shadcn.png",
+    name: "Mark D.",
+    role: "Training Director",
+    content:
+      "Finally, a developer who understands complex variables in Storyline. Bug-free delivery.",
   },
   {
-    name: "Marcus J.",
-    role: "Director, Apex",
-    quote: "Incredibly talented team.",
-    image: "https://github.com/shadcn.png",
+    name: "Elena Rodriguez",
+    role: "Founder, EduStart",
+    content:
+      "The course landing page converted at 4.5%. Clean design and fast turnaround.",
   },
   {
-    name: "Emily Davis",
-    role: "VP, Solstice",
-    quote: "Design and performance matched.",
-    image: "https://github.com/shadcn.png",
+    name: "David K.",
+    role: "Safety Officer",
+    content:
+      "Helped us troubleshoot a SCORM issue our previous vendor couldn't fix.",
   },
   {
-    name: "Chris Paul",
-    role: "Manager, Hoops",
-    quote: "Seamless communication.",
-    image: "https://github.com/shadcn.png",
+    name: "Alex Thompson",
+    role: "CTO, SkillUp",
+    content:
+      "High-quality code and great communication. The LMS integration was seamless.",
+  },
+  {
+    name: "Maria Garcia",
+    role: "HR Lead",
+    content:
+      "Our onboarding process is now fully automated and interactive. New hires love it.",
   },
 ];
 
-// Helper Component for a single card
-const TestimonialCard = ({ data }: { data: (typeof testimonials)[0] }) => {
+// --- SUB-COMPONENT: CARD ---
+const ReviewCard = ({
+  name,
+  role,
+  content,
+}: {
+  name: string;
+  role: string;
+  content: string;
+}) => {
   return (
-    <div className="relative h-full w-[350px] flex-shrink-0 rounded-2xl border border-zinc-200 bg-white p-8 shadow-sm transition-all hover:border-zinc-400 hover:shadow-md mx-4">
-      <p className="text-lg font-medium leading-relaxed tracking-tight text-zinc-800 mb-6">
-        &quot;{data.quote}&quot;
-      </p>
-      <div className="flex items-center gap-4 mt-auto">
-        <Avatar className="h-10 w-10 border border-zinc-100">
-          <AvatarImage src={data.image} />
-          <AvatarFallback>{data.name[0]}</AvatarFallback>
+    <div className="relative w-full cursor-pointer overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 transition-colors hover:border-zinc-600 hover:bg-zinc-900">
+      <div className="flex flex-row items-center gap-2 mb-4">
+        <Avatar className="h-8 w-8 border border-zinc-700">
+          <AvatarImage
+            src={`https://api.dicebear.com/7.x/initials/svg?seed=${name}`}
+          />
+          <AvatarFallback>{name[0]}</AvatarFallback>
         </Avatar>
-        <div>
-          <h4 className="font-bold text-sm text-zinc-900">{data.name}</h4>
-          <p className="text-zinc-500 text-xs">{data.role}</p>
+        <div className="flex flex-col">
+          <figcaption className="text-sm font-medium text-white">
+            {name}
+          </figcaption>
+          <p className="text-xs font-medium text-zinc-500">{role}</p>
+        </div>
+        <div className="ml-auto flex gap-0.5">
+          {[1, 2, 3, 4, 5].map((i) => (
+            <Star key={i} size={12} className="fill-amber-500 text-amber-500" />
+          ))}
         </div>
       </div>
+      <blockquote className="text-sm leading-relaxed text-zinc-300">
+        &quot;{content}&quot;
+      </blockquote>
     </div>
   );
 };
 
-export default function TestimonialsLoop() {
+// --- SUB-COMPONENT: COLUMN ---
+// This handles the infinite scroll logic using Framer Motion
+const ReviewColumn = ({
+  reviews,
+  duration = 20,
+}: {
+  reviews: Array<{ name: string; role: string; content: string }>;
+  duration?: number;
+}) => {
   return (
-    <section className="bg-zinc-50 py-24 overflow-hidden">
-      <div className="container px-4 md:px-12 mb-16">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-center">
-          What people say.
-        </h2>
-      </div>
+    <div className="relative flex flex-col overflow-hidden h-150 gap-6">
+      <motion.div
+        initial={{ y: 0 }}
+        animate={{ y: "-50%" }}
+        transition={{
+          duration: duration,
+          ease: "linear",
+          repeat: Infinity,
+        }}
+        className="flex flex-col gap-6"
+      >
+        {/* We double the data to create the infinite loop effect */}
+        {[...reviews, ...reviews].map((review, i) => (
+          <ReviewCard key={i} {...review} />
+        ))}
+      </motion.div>
 
-      <div className="relative flex flex-col gap-8">
-        {/* Gradient Masks for seamless fade effect */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-zinc-50 to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-zinc-50 to-transparent" />
+      {/* Top/Bottom Fade Masks */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-linear-to-b from-black to-transparent z-10" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-black to-transparent z-10" />
+    </div>
+  );
+};
 
-        {/* Row 1: Moving LEFT */}
-        <div className="flex overflow-hidden">
-          <motion.div
-            initial={{ x: 0 }}
-            animate={{ x: "-50%" }}
-            transition={{
-              duration: 20, // Adjust speed (higher = slower)
-              ease: "linear",
-              repeat: Infinity,
-            }}
-            className="flex min-w-full"
-          >
-            {/* We duplicate the data to create the infinite loop illusion */}
-            {[...testimonials, ...testimonials].map((t, i) => (
-              <TestimonialCard key={i} data={t} />
-            ))}
-          </motion.div>
+// --- MAIN COMPONENT ---
+export default function TestimonialsFlow() {
+  return (
+    <section className="bg-black py-24 px-4 md:px-12 overflow-hidden border-t border-zinc-900">
+      <div className="container mx-auto max-w-7xl">
+        {/* Header */}
+        <div className="mb-12 text-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 text-xs font-mono uppercase tracking-widest mb-6">
+            Client Success
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-4">
+            Don&apos;t just take our word for it.
+          </h2>
+          <p className="text-zinc-500 max-w-lg mx-auto">
+            Join hundreds of training managers and educators who trust us with
+            their content.
+          </p>
         </div>
 
-        {/* Row 2: Moving RIGHT */}
-        <div className="flex overflow-hidden">
-          <motion.div
-            initial={{ x: "-50%" }}
-            animate={{ x: 0 }}
-            transition={{
-              duration: 25, // Different speed feels more organic
-              ease: "linear",
-              repeat: Infinity,
-            }}
-            className="flex min-w-full"
-          >
-            {/* Duplicate data again */}
-            {[...testimonials, ...testimonials].map((t, i) => (
-              <TestimonialCard key={i} data={t} />
-            ))}
-          </motion.div>
+        {/* The Wall of Love Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Column 1 (Fast) */}
+          <ReviewColumn reviews={reviews.slice(0, 3)} duration={15} />
+
+          {/* Column 2 (Slower, Hidden on mobile) */}
+          <div className="hidden md:block">
+            {/* We reverse the array here to make it visually distinct */}
+            <ReviewColumn
+              reviews={[...reviews.slice(3, 6)].reverse()}
+              duration={25}
+            />
+          </div>
+
+          {/* Column 3 (Medium, Hidden on tablet) */}
+          <div className="hidden lg:block">
+            <ReviewColumn reviews={reviews.slice(0, 3)} duration={20} />
+          </div>
         </div>
       </div>
     </section>

@@ -1,155 +1,76 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, Minus, Plus } from "lucide-react";
-import { useState } from "react";
+import { motion } from "framer-motion";
 
-// The "Agency" Pillars - No tech stack here, just business value.
-const philosophies = [
-  {
-    id: "01",
-    title: "Strategic Foundation",
-    description:
-      "We don't start with pixels; we start with problems. Our discovery phase digs deep into your market position, user needs, and business goals to ensure we build the right thing, not just the pretty thing.",
-    tags: ["Market Research", "Brand Positioning", "User Persona"],
-  },
-  {
-    id: "02",
-    title: "World-Class Design",
-    description:
-      "Aesthetics build trust. We craft distinct visual identities and intuitive interfaces that separate market leaders from followers. Every interaction is designed to delight and convert.",
-    tags: ["UI/UX System", "Motion Design", "Art Direction"],
-  },
-  {
-    id: "03",
-    title: "Scalable Engineering",
-    description:
-      "Performance is a feature. We build robust, headless architectures capable of handling millions of users. Secure, fast, and built for the future of the web.",
-    tags: ["Headless CMS", "Global CDNs", "API Architecture"],
-  },
-  {
-    id: "04",
-    title: "Growth & Analytics",
-    description:
-      "Launch is just day one. We integrate deep analytics loops and SEO strategies to ensure your digital product grows with your business.",
-    tags: ["Technical SEO", "Conversion Optimization", "Data Pipelines"],
-  },
-];
-
-export default function AboutAgencyManifesto() {
-  // Track which item is open (default to the first one)
-  const [openItem, setOpenItem] = useState<string | null>("01");
-
+export default function TrustSignalsDark() {
   return (
-    <section
-      className="relative bg-white py-24 px-4 md:px-12 lg:px-24"
-      id="about"
-    >
-      <div className="flex flex-col lg:flex-row gap-16 lg:gap-32">
-        {/* --- LEFT COLUMN: The Manifesto (Sticky) --- */}
-        <div className="w-full lg:w-1/2">
-          <div className="sticky top-32">
-            <span className="block mb-6 text-sm font-bold tracking-widest text-zinc-400 uppercase">
-              Who We Are
-            </span>
+    <section className="w-full bg-zinc-950 py-20 px-4">
+      <div className="container mx-auto max-w-6xl">
+        {/* The Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Card 1 */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-8 transition-colors hover:bg-white/10"
+          >
+            <div className="absolute top-0 right-0 p-32 bg-indigo-500/10 blur-[60px] rounded-full pointer-events-none" />
 
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-zinc-900 mb-8 leading-[1.1]">
-              We bridge the gap between <br />
-              <span className="text-zinc-400">vision</span> and{" "}
-              <span className="text-zinc-400">reality.</span>
-            </h2>
-
-            <p className="text-xl text-zinc-600 leading-relaxed max-w-md mb-10">
-              Articulate Agency is a global collective of designers, engineers,
-              and strategists. We exist to help ambitious brands navigate the
-              digital noise and build products that matter.
+            <p className="text-sm font-medium uppercase tracking-widest text-indigo-400 mb-4">
+              Expertise
             </p>
+            <div className="flex items-baseline gap-2">
+              <span className="text-6xl font-bold text-white">5</span>
+              <span className="text-3xl text-zinc-500 font-light">+ Years</span>
+            </div>
+            <p className="mt-4 text-zinc-400 leading-relaxed">
+              Deep expertise in instructional design and Storyline development.
+            </p>
+          </motion.div>
 
-            <Button
-              size="lg"
-              className="rounded-full px-8 bg-zinc-900 text-white hover:bg-zinc-800"
-            >
-              Meet the Team <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </div>
-        </div>
+          {/* Card 2 */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-8 transition-colors hover:bg-white/10"
+          >
+            <div className="absolute bottom-0 left-0 p-32 bg-purple-500/10 blur-[60px] rounded-full pointer-events-none" />
 
-        {/* --- RIGHT COLUMN: The Interactive Philosophy (Accordion) --- */}
-        <div className="w-full lg:w-1/2 flex flex-col">
-          {philosophies.map((item) => {
-            const isOpen = openItem === item.id;
+            <p className="text-sm font-medium uppercase tracking-widest text-purple-400 mb-4">
+              Volume
+            </p>
+            <div className="flex items-baseline gap-2">
+              <span className="text-6xl font-bold text-white">100</span>
+              <span className="text-3xl text-zinc-500 font-light">+</span>
+            </div>
+            <p className="mt-4 text-zinc-400 leading-relaxed">
+              Successful training projects delivered on time and budget.
+            </p>
+          </motion.div>
 
-            return (
-              <div
-                key={item.id}
-                onClick={() => setOpenItem(isOpen ? null : item.id)}
-                className="group border-t border-zinc-200 py-10 cursor-pointer transition-colors hover:border-zinc-400"
-              >
-                {/* Header Row */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-6">
-                    <span
-                      className={`text-sm font-mono transition-colors ${
-                        isOpen ? "text-zinc-900 font-bold" : "text-zinc-400"
-                      }`}
-                    >
-                      /{item.id}
-                    </span>
-                    <h3
-                      className={`text-2xl md:text-3xl font-bold tracking-tight transition-colors ${
-                        isOpen
-                          ? "text-zinc-900"
-                          : "text-zinc-400 group-hover:text-zinc-600"
-                      }`}
-                    >
-                      {item.title}
-                    </h3>
-                  </div>
-                  {/* Icon Toggle */}
-                  <div className="text-zinc-400 group-hover:text-zinc-900 transition-colors">
-                    {isOpen ? <Minus /> : <Plus />}
-                  </div>
-                </div>
+          {/* Card 3 */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-8 transition-colors hover:bg-white/10"
+          >
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-24 bg-blue-500/10 blur-[60px] rounded-full pointer-events-none" />
 
-                {/* Body Reveal (Framer Motion) */}
-                <AnimatePresence>
-                  {isOpen && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{
-                        duration: 0.4,
-                        ease: [0.04, 0.62, 0.23, 0.98],
-                      }}
-                      className="overflow-hidden"
-                    >
-                      <div className="pt-6 pl-0 md:pl-12">
-                        <p className="text-lg text-zinc-600 leading-relaxed mb-6">
-                          {item.description}
-                        </p>
-
-                        {/* Tags / Keywords */}
-                        <div className="flex flex-wrap gap-2">
-                          {item.tags.map((tag) => (
-                            <span
-                              key={tag}
-                              className="px-3 py-1 rounded-full bg-zinc-100 text-xs font-medium text-zinc-600 border border-zinc-200"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            );
-          })}
-          {/* Bottom Border for the last item */}
-          <div className="border-t border-zinc-200" />
+            <p className="text-sm font-medium uppercase tracking-widest text-blue-400 mb-4">
+              Trust
+            </p>
+            <div className="flex items-baseline gap-2">
+              <span className="text-6xl font-bold text-white">Global</span>
+            </div>
+            <p className="mt-4 text-zinc-400 leading-relaxed">
+              Trusted by clients and agencies across 4 continents.
+            </p>
+          </motion.div>
         </div>
       </div>
     </section>
