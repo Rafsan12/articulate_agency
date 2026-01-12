@@ -2,36 +2,47 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
-import { ArrowRight, Check, Code2, Globe, Layout, Zap } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  ArrowRight,
+  Check,
+  ChevronRight,
+  Code2,
+  Globe,
+  Layout,
+  MessageCircle,
+  Zap,
+} from "lucide-react";
+import { useState } from "react";
 
-// --- DATA STRUCTURE ---
+// --- DATA ---
 const services = [
   {
     id: "01",
-    title: "Interactive Course Development",
+    title: "Interactive Course Dev",
+    shortTitle: "Course Development",
     icon: Zap,
     description:
       "The full-cycle production package. We take your raw content and turn it into a polished learning experience.",
-    whoFor: "Companies, Training Providers, Educators",
+    whoFor: "Companies, Educators",
     included: [
       "Instructional design support",
       "Storyboarding & Scripting",
       "Interactive learning activities",
       "Assessments & quizzes",
-      "SCORM / xAPI output",
     ],
     tools: ["Articulate Storyline", "Figma", "LMS"],
   },
   {
     id: "02",
     title: "Articulate Storyline Dev",
+    shortTitle: "Storyline Expert",
     icon: Code2,
     description:
       "Pure technical execution. Perfect if you already have the slides/scripts and just need a developer to build it.",
-    whoFor: "Instructional Designers, Agencies",
+    whoFor: "Instructional Designers",
     included: [
-      "PPT/Script to Storyline Conversion",
+      "PPT to Storyline Conversion",
       "Custom interactions & scenarios",
       "Variables, triggers, & logic",
       "Accessibility (508/WCAG)",
@@ -41,179 +52,238 @@ const services = [
   {
     id: "03",
     title: "Course Design & Graphics",
+    shortTitle: "UI/UX & Graphics",
     icon: Layout,
     description:
       "Visual polish for your training. We ensure your course looks like a high-end product, not a default template.",
-    whoFor: "L&D Teams, Course Creators",
+    whoFor: "L&D Teams, Creators",
     included: [
       "eLearning slide design",
       "Course UI/UX Interface",
       "Custom Infographics",
       "Brand Consistency Guide",
     ],
-    tools: ["Adobe Illustrator", "Photoshop", "Figma"],
+    tools: ["Illustrator", "Photoshop", "Figma"],
   },
   {
     id: "04",
     title: "Course Websites & Launch",
+    shortTitle: "Websites & Launch",
     icon: Globe,
     description:
-      "We aren't a generic web agency. We build specific, high-converting pages designed to sell or deliver courses.",
+      "We build specific, high-converting pages designed to sell or deliver courses.",
     whoFor: "Course Sellers, Academies",
     included: [
       "Course Landing Pages",
       "Training Portals",
       "Sales Pages",
-      "Basic WordPress/Webflow builds",
+      "WordPress/Webflow builds",
     ],
     tools: ["Webflow", "WordPress", "Next.js"],
   },
 ];
 
-export default function ServicesPage() {
+export default function ServicesTabs() {
+  const [activeTab, setActiveTab] = useState(0);
+
+  // Helper for WhatsApp Booking
+  const handleBook = (serviceName: string) => {
+    const phone = "15550000000"; // Replace with yours
+    const msg = `Hi, I am interested in ${serviceName}.`;
+    window.open(
+      `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`,
+      "_blank"
+    );
+  };
+
   return (
-    <div className="min-h-screen bg-black text-white selection:bg-blue-500/30">
-      {/* 1. HERO SECTION */}
-      <section className="pt-32 pb-20 px-4 md:px-12 lg:px-24 border-b border-zinc-900">
-        <div className="container mx-auto max-w-5xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 text-xs font-mono uppercase tracking-widest mb-6">
-            Our Capabilities
-          </div>
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-6">
-            Everything you need to <br />
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-indigo-500">
-              teach & train online.
-            </span>
+    <div className="min-h-screen bg-black text-white selection:bg-blue-500/30 flex flex-col">
+      {/* 1. HERO HEADER */}
+      <section className="pt-24 pb-12 px-4 md:px-12 lg:px-24">
+        <div className="container mx-auto max-w-7xl">
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-4">
+            Our Capabilities.
           </h1>
-          <p className="text-xl text-zinc-500 max-w-2xl leading-relaxed">
-            From technical Storyline development to the landing page where your
-            students enroll. We handle the entire production pipeline.
+          <p className="text-zinc-400 max-w-2xl text-lg">
+            Select a service to view the technical breakdown.
           </p>
         </div>
       </section>
 
-      {/* 2. SERVICES GRID */}
-      <section className="py-24 px-4 md:px-12 lg:px-24">
-        <div className="container mx-auto max-w-6xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {services.map((service, index) => (
-              <motion.div
-                key={service.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="group flex flex-col h-full rounded-3xl border border-zinc-800 bg-zinc-900/20 hover:bg-zinc-900/40 hover:border-zinc-700 transition-all duration-300 overflow-hidden"
-              >
-                {/* Card Header */}
-                <div className="p-8 md:p-10 border-b border-zinc-800/50">
-                  <div className="flex items-start justify-between mb-6">
-                    <div className="h-12 w-12 rounded-2xl bg-zinc-800 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
-                      <service.icon size={24} />
+      {/* 2. THE TAB SYSTEM */}
+      <section className="px-4 md:px-12 lg:px-24 pb-24 flex-1">
+        <div className="container mx-auto max-w-7xl">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+            {/* --- LEFT COLUMN: Navigation Menu --- */}
+            <div className="lg:col-span-4 flex flex-col gap-2">
+              {services.map((service, index) => {
+                const isActive = activeTab === index;
+                return (
+                  <button
+                    key={service.id}
+                    onClick={() => setActiveTab(index)}
+                    className={`group relative flex items-center justify-between p-6 rounded-2xl text-left transition-all duration-300 ${
+                      isActive
+                        ? "bg-zinc-900 border border-zinc-800"
+                        : "hover:bg-zinc-900/40 border border-transparent"
+                    }`}
+                  >
+                    <div className="flex items-center gap-4">
+                      {/* Active Indicator Dot */}
+                      <div
+                        className={`w-2 h-2 rounded-full transition-colors ${
+                          isActive
+                            ? "bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]"
+                            : "bg-zinc-800 group-hover:bg-zinc-700"
+                        }`}
+                      />
+
+                      <div>
+                        <span
+                          className={`block text-sm font-mono mb-1 transition-colors ${
+                            isActive ? "text-blue-400" : "text-zinc-600"
+                          }`}
+                        >
+                          /{service.id}
+                        </span>
+                        <span
+                          className={`block font-bold text-lg transition-colors ${
+                            isActive
+                              ? "text-white"
+                              : "text-zinc-400 group-hover:text-zinc-200"
+                          }`}
+                        >
+                          {service.shortTitle}
+                        </span>
+                      </div>
                     </div>
-                    <span className="text-zinc-600 font-mono text-sm">
-                      /{service.id}
-                    </span>
-                  </div>
 
-                  <h3 className="text-3xl font-bold mb-4">{service.title}</h3>
-                  <p className="text-zinc-400 leading-relaxed">
-                    {service.description}
-                  </p>
-                </div>
+                    {/* Arrow appears only on active/hover */}
+                    <ChevronRight
+                      className={`transition-all duration-300 ${
+                        isActive
+                          ? "opacity-100 translate-x-0 text-blue-500"
+                          : "opacity-0 -translate-x-2 text-zinc-600"
+                      }`}
+                    />
 
-                {/* Card Details */}
-                <div className="p-8 md:p-10 flex-1 flex flex-col">
-                  {/* Who it's for */}
-                  <div className="mb-8">
-                    <span className="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-2">
-                      Best For
-                    </span>
-                    <p className="text-zinc-300 font-medium">
-                      {service.whoFor}
+                    {/* Background Active Glow */}
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeGlow"
+                        className="absolute inset-0 rounded-2xl bg-zinc-800/20 -z-10"
+                        transition={{
+                          type: "spring",
+                          bounce: 0.2,
+                          duration: 0.6,
+                        }}
+                      />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* --- RIGHT COLUMN: Display Panel --- */}
+            <div className="lg:col-span-8">
+              <div className="relative h-full min-h-125 rounded-3xl border border-zinc-800 bg-zinc-900/30 overflow-hidden p-8 md:p-12">
+                {/* Background Noise Texture */}
+                <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none" />
+
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeTab}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.3 }}
+                    className="relative z-10 flex flex-col h-full"
+                  >
+                    {/* Service Header */}
+                    <div className="flex items-start justify-between mb-8">
+                      <div className="p-4 rounded-2xl bg-zinc-800/50 border border-zinc-700/50 text-blue-400">
+                        {/* Render the icon dynamically */}
+                        {(() => {
+                          const Icon = services[activeTab].icon;
+                          return <Icon size={32} />;
+                        })()}
+                      </div>
+                      <Badge
+                        variant="outline"
+                        className="border-blue-900/30 bg-blue-900/10 text-blue-400 px-3 py-1"
+                      >
+                        Best For: {services[activeTab].whoFor}
+                      </Badge>
+                    </div>
+
+                    <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+                      {services[activeTab].title}
+                    </h2>
+                    <p className="text-xl text-zinc-400 leading-relaxed mb-10 max-w-2xl">
+                      {services[activeTab].description}
                     </p>
-                  </div>
 
-                  {/* Deliverables List */}
-                  <div className="mb-8 flex-1">
-                    <span className="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-4">
-                      What&apos;s Included
-                    </span>
-                    <ul className="space-y-3">
-                      {service.included.map((item, i) => (
-                        <li
-                          key={i}
-                          className="flex items-start gap-3 text-sm text-zinc-400"
-                        >
-                          <Check
-                            className="text-blue-500 shrink-0 mt-0.5"
-                            size={16}
-                          />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                    {/* Content Split: Deliverables vs Tools */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+                      {/* Deliverables */}
+                      <div>
+                        <h4 className="text-sm font-bold text-zinc-500 uppercase tracking-wider mb-4">
+                          Included Deliverables
+                        </h4>
+                        <ul className="space-y-3">
+                          {services[activeTab].included.map((item, i) => (
+                            <li
+                              key={i}
+                              className="flex items-start gap-3 text-zinc-300"
+                            >
+                              <Check
+                                className="text-blue-500 shrink-0 mt-0.5"
+                                size={18}
+                              />
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
 
-                  {/* Tools / Tech Stack */}
-                  <div>
-                    <span className="block text-xs font-bold text-zinc-500 uppercase tracking-wider mb-3">
-                      Core Stack
-                    </span>
-                    <div className="flex flex-wrap gap-2">
-                      {service.tools.map((tool) => (
-                        <Badge
-                          key={tool}
-                          variant="secondary"
-                          className="bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-white border-transparent"
-                        >
-                          {tool}
-                        </Badge>
-                      ))}
+                      {/* Tech Stack */}
+                      <div>
+                        <h4 className="text-sm font-bold text-zinc-500 uppercase tracking-wider mb-4">
+                          Core Technology
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          {services[activeTab].tools.map((tool) => (
+                            <Badge
+                              key={tool}
+                              className="bg-zinc-950 border border-zinc-800 text-zinc-400 px-3 py-1.5 hover:text-white transition-colors"
+                            >
+                              {tool}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* 3. PRICING & CTA */}
-      <section className="py-24 px-4 border-t border-zinc-900 bg-zinc-950">
-        <div className="container mx-auto max-w-3xl text-center">
-          {/* Pricing Note */}
-          <div className="mb-12 p-8 rounded-3xl bg-zinc-900/50 border border-zinc-800 inline-block">
-            <h4 className="text-white text-lg font-bold mb-2">
-              Pricing Transparency
-            </h4>
-            <p className="text-zinc-400">
-              Every project is unique. We offer{" "}
-              <span className="text-white">fixed-price packages</span> for
-              standard scopes and
-              <span className="text-white"> custom quotes</span> for complex
-              builds.
-            </p>
-          </div>
-
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-white mb-8">
-            Let&apos;s scope your project.
-          </h2>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              size="lg"
-              className="h-14 rounded-full bg-white text-black hover:bg-zinc-200 px-8 font-bold text-lg"
-            >
-              Get a Quote <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="h-14 rounded-full border-zinc-800 text-black  px-8 text-lg"
-            >
-              Book Strategy Call
-            </Button>
+                    {/* Bottom Actions */}
+                    <div className="mt-auto pt-8 border-t border-zinc-800/50 flex flex-col sm:flex-row gap-4">
+                      <Button
+                        onClick={() => handleBook(services[activeTab].title)}
+                        className="h-12 rounded-full bg-white text-black hover:bg-zinc-200 px-8 font-bold text-base"
+                      >
+                        <MessageCircle className="mr-2 h-5 w-5" />
+                        Book via WhatsApp
+                      </Button>
+                      <Button
+                        variant="outline"
+                        className="h-12 rounded-full border-zinc-700 text-white hover:bg-zinc-800 px-8 text-base"
+                      >
+                        View Examples <ArrowRight className="ml-2 h-5 w-5" />
+                      </Button>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </div>
           </div>
         </div>
       </section>
