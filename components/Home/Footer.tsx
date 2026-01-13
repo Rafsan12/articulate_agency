@@ -10,40 +10,6 @@ export default function FooterCTA() {
       {/* =========================================
           SECTION 1: THE ABOUT TEASER (Boutique Studio Vibe)
           ========================================= */}
-      <section className="bg-zinc-900 py-24 px-4 md:px-12 lg:px-24 border-t border-zinc-800">
-        <div className="container mx-auto max-w-4xl text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            {/* The Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-zinc-700 bg-zinc-800/50 text-zinc-300 text-sm font-medium mb-8">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              Who We Are
-            </div>
-
-            {/* The Statement */}
-            <h3 className="text-3xl md:text-5xl font-medium text-white leading-tight mb-8">
-              We’re a small, focused eLearning studio led by an experienced{" "}
-              <span className="text-blue-400">
-                Articulate Storyline developer
-              </span>
-              , working with a dedicated design partner to deliver consistent,
-              high-quality learning experiences.
-            </h3>
-
-            {/* The Button */}
-            <Button
-              variant="link"
-              className="text-white text-lg hover:text-blue-400 p-0 underline-offset-8 decoration-zinc-600 hover:decoration-blue-400 transition-all"
-            >
-              👉 Learn More About Us
-            </Button>
-          </motion.div>
-        </div>
-      </section>
 
       {/* =========================================
           SECTION 2: THE FINAL CTA (Magnetic Footer)
