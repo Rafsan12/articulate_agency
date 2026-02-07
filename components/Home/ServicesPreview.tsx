@@ -6,7 +6,7 @@ import {
   ArrowDown,
   Check,
   FileCode2,
-  MessageCircle, // Added Message Icon
+  MessageCircle,
   MonitorPlay,
   Palette,
   Rocket,
@@ -15,7 +15,7 @@ import {
 import { useState } from "react";
 
 // --- CONFIG ---
-const PHONE_NUMBER = "15550000000"; // REPLACE THIS with your number (No + or -)
+const PHONE_NUMBER = "15550000000";
 
 const services = [
   {
@@ -81,9 +81,9 @@ export default function ServicesExpanded() {
 
   const toggleService = (index: number) => {
     if (expandedIndex === index) {
-      setExpandedIndex(null); // Close if already open
+      setExpandedIndex(null);
     } else {
-      setExpandedIndex(index); // Open new
+      setExpandedIndex(index);
     }
   };
 
@@ -93,7 +93,7 @@ export default function ServicesExpanded() {
 
     const message = `Hi, I am interested in your ${serviceName} service. Can we discuss the details?`;
     const url = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(
-      message
+      message,
     )}`;
 
     window.open(url, "_blank");

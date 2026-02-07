@@ -3,8 +3,18 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Calendar, Mail } from "lucide-react";
-
+const PHONE_NUMBER = "15550000000";
 export default function FooterCTA() {
+  const handleWhatsAppClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); //
+
+    const message = `Hi, I am interested in your service. Can we discuss the details?`;
+    const url = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(
+      message,
+    )}`;
+
+    window.open(url, "_blank");
+  };
   return (
     <>
       {/* =========================================
@@ -41,6 +51,7 @@ export default function FooterCTA() {
           >
             {/* Primary Action */}
             <Button
+              onClick={handleWhatsAppClick}
               size="lg"
               className="h-16 rounded-full bg-blue-600 hover:bg-blue-500 text-white px-10 text-xl font-bold shadow-[0_0_40px_-10px_rgba(37,99,235,0.5)] hover:shadow-[0_0_60px_-10px_rgba(37,99,235,0.7)] transition-all duration-300 hover:scale-105"
             >

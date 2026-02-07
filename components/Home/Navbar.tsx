@@ -7,9 +7,11 @@ import {
   useMotionValueEvent,
   useScroll,
 } from "framer-motion";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+
+const PHONE_NUMBER = "15550000000";
 
 export default function Navbar() {
   const { scrollY } = useScroll();
@@ -32,6 +34,17 @@ export default function Navbar() {
     { name: "About", href: "about" },
   ];
 
+  const handleWhatsAppClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+
+    const message = `Hi, I am interested in your service. Can we discuss the details?`;
+    const url = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(
+      message,
+    )}`;
+
+    window.open(url, "_blank");
+  };
+
   return (
     <>
       <motion.nav
@@ -44,30 +57,28 @@ export default function Navbar() {
           border: "1px solid rgba(0,0,0,0)",
         }}
         animate={{
-          // If scrolled: Width shrinks, Top adds spacing, Border Radius curves
           width: scrolled ? "90%" : "100%",
-          maxWidth: scrolled ? "1000px" : "100%", // Max width for the pill
+          maxWidth: scrolled ? "1000px" : "100%",
           top: scrolled ? 20 : 0,
           borderRadius: scrolled ? "50px" : "0px",
           backgroundColor: scrolled
-            ? "rgba(255, 255, 255, 0.85)" // White/Glass when scrolled
-            : "rgba(255, 255, 255, 0)", // Transparent at top
+            ? "rgba(9, 9, 11, 0.85)"
+            : "rgba(9, 9, 11, 0)",
+
           border: scrolled
-            ? "1px solid rgba(0,0,0,0.1)" // Show border when scrolled
-            : "1px solid rgba(0,0,0,0)",
-          boxShadow: scrolled
-            ? "0px 4px 20px rgba(0,0,0,0.1)" // Add shadow when scrolled
-            : "none",
+            ? "1px solid rgba(99, 102, 241, 0.12)"
+            : "1px solid rgba(99, 102, 241, 0)",
+
+          boxShadow: scrolled ? "0px 6px 24px rgba(0, 0, 0, 0.6)" : "none",
         }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        // CSS POSITIONING (Always Fixed/Static on screen)
         className="fixed left-1/2 -translate-x-1/2 z-50 backdrop-blur-md overflow-hidden"
       >
         <div className="flex items-center justify-between px-6 md:px-8 py-3 w-full">
           {/* Logo */}
           <Link
             href="/"
-            className="text-xl font-bold tracking-tighter relative z-10 text-black"
+            className="text-indigo-50 hover:text-white font-bold tracking-tighter relative z-10 text-lg"
           >
             Articulate.
           </Link>
@@ -78,7 +89,7 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-sm font-medium text-zinc-600 hover:text-black transition-colors"
+                className="text-sm font-medium text-indigo-200 hover:text-indigo-50 transition-colors"
               >
                 {link.name}
               </Link>
@@ -87,7 +98,10 @@ export default function Navbar() {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <Button className="rounded-full px-6 bg-black text-white hover:bg-zinc-800 transition-all">
+            <Button
+              onClick={handleWhatsAppClick}
+              className="rounded-full px-6 bg-indigo-500 hover:bg-indigo-400 text-white transition-all"
+            >
               Book a Call
             </Button>
           </div>
@@ -95,7 +109,7 @@ export default function Navbar() {
           {/* Mobile Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-black"
+            className="md:hidden p-2 text-white"
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -130,8 +144,12 @@ export default function Navbar() {
                 </motion.div>
               ))}
               <div className="mt-8 pt-8 border-t border-gray-100">
-                <Button size="lg" className="w-full text-lg rounded-full py-8">
-                  Book a Call <ArrowUpRight className="ml-2" />
+                <Button
+                  onClick={handleWhatsAppClick}
+                  size="lg"
+                  className="w-full text-lg rounded-full py-8"
+                >
+                  Book a Call
                 </Button>
               </div>
             </div>

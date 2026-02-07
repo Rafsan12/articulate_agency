@@ -22,10 +22,10 @@ export default function WhatsAppFloat() {
   }, []);
 
   // YOUR DATA HERE
-  const phoneNumber = "15550000000"; // Country code + Number (no symbols)
-  const message = "Hi Articulate Agency, I'm interested in a course project."; // Pre-filled message
+  const phoneNumber = "15550000000";
+  const message = "Hi Articulate Agency, I'm interested in a course project.";
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
-    message
+    message,
   )}`;
 
   return (
@@ -53,7 +53,6 @@ export default function WhatsAppFloat() {
                 className="absolute right-full bg-white text-black px-4 py-2 rounded-lg shadow-lg text-sm font-bold whitespace-nowrap mr-2 border border-zinc-200"
               >
                 Chat with an Expert
-                {/* Little triangle pointer */}
                 <div className="absolute top-1/2 -right-1 w-2 h-2 bg-white transform -translate-y-1/2 rotate-45 border-r border-t border-zinc-200" />
               </motion.div>
             )}
