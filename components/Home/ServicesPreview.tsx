@@ -12,6 +12,7 @@ import {
   Rocket,
   X,
 } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
 // --- CONFIG ---
@@ -225,15 +226,26 @@ export default function ServicesExpanded() {
                             </p>
 
                             {/* --- BUTTON UPDATE START --- */}
-                            <Button
-                              onClick={(e) =>
-                                handleWhatsAppClick(e, service.title)
-                              }
-                              className="rounded-full bg-emerald-600 text-white hover:bg-emerald-500 border border-emerald-500/20"
-                            >
-                              <MessageCircle className="mr-2 h-4 w-4" />
-                              Book on WhatsApp
-                            </Button>
+                            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                              <Button
+                                onClick={(e) =>
+                                  handleWhatsAppClick(e, service.title)
+                                }
+                                className="rounded-full bg-emerald-600 text-white hover:bg-emerald-500 border border-emerald-500/20"
+                              >
+                                <MessageCircle className="mr-2 h-4 w-4" />
+                                Book on WhatsApp
+                              </Button>
+                              <Button
+                                asChild
+                                variant="outline"
+                                className="rounded-full border-zinc-700 bg-zinc-900 text-white hover:bg-zinc-800 hover:text-white"
+                              >
+                                <Link href="/work" onClick={(e) => e.stopPropagation()}>
+                                  See Our Work
+                                </Link>
+                              </Button>
+                            </div>
                             {/* --- BUTTON UPDATE END --- */}
                           </div>
 
