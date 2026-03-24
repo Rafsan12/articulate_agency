@@ -9,6 +9,7 @@ import {
   ShieldCheck,
   Users,
 } from "lucide-react";
+import Link from "next/link";
 
 const projects = [
   {
@@ -63,16 +64,17 @@ export default function PortfolioPreview() {
               </span>
             </h2>
             <p className="text-zinc-400 text-lg leading-relaxed">
-              We don't just build slides; we build experiences. Here is a
+              We don&apos;t just build slides; we build experiences. Here is a
               snapshot of the types of training we deliver.
             </p>
           </div>
 
           <Button
+            asChild
             size="lg"
             className="hidden md:flex rounded-full bg-white text-black hover:bg-zinc-200 px-8 h-14 text-base font-medium"
           >
-            👉 View Case Studies
+            <Link href="/work">View Case Studies</Link>
           </Button>
         </div>
 
@@ -126,10 +128,11 @@ export default function PortfolioPreview() {
         {/* Mobile CTA (only visible on small screens) */}
         <div className="mt-12 md:hidden">
           <Button
+            asChild
             size="lg"
             className="w-full rounded-full bg-white text-black hover:bg-zinc-200 h-14 text-base font-medium"
           >
-            👉 View Case Studies
+            <Link href="/work">View Case Studies</Link>
           </Button>
         </div>
       </div>

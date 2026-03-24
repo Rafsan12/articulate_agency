@@ -76,7 +76,7 @@ export default function AboutPage() {
           >
             We help organizations transform knowledge into engaging learning
             experiences using modern instructional design and Storyline
-            development. Our mission is to design learning that works — for
+            development. Our mission is to design learning that works - for
             learners and businesses.
           </motion.p>
         </div>
@@ -244,10 +244,10 @@ export default function AboutPage() {
             viewport={{ once: true }}
             className="text-4xl md:text-5xl font-bold text-white mb-6"
           >
-            Let's Create Something Exceptional
+            Let&apos;s Create Something Exceptional
           </motion.h2>
           <p className="text-indigo-100 text-lg mb-10">
-            Ready to discuss your eLearning project? We're here to help.
+            Ready to discuss your eLearning project? We&apos;re here to help.
           </p>
           <Button
             size="lg"
