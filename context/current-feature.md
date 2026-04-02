@@ -40,13 +40,13 @@ Exclude:
 
 ## Validation
 
-- [x] UI checked if applicable
-- [x] `npm run lint`
-- [x] `npm run build`
+- [ ] UI checked if applicable
+- [ ] `npm run lint`
+- [ ] `npm run build`
 
 ## Completion Notes
 
-Selected Work page completed, merged into the portfolio flow, and cleared from the active tracker for the next feature.
+Case Study Page completed and cleared from the active tracker for the next feature.
 
 ---
 
@@ -60,3 +60,4 @@ Keep this list short and ordered from earliest to latest. Record meaningful mile
 - Coding standards document cleaned and aligned with the actual repo structure
 - AI interaction guidelines cleaned and aligned with the current workflow
 - Selected Work page implemented with `/work`, homepage CTAs, centralized project data, GSAP card motion, and ready case study routes
+- Case Study Page implemented with reusable components, richer shared data, Storyline embed, actual slide-based visuals, gallery updates, and successful lint/build validation
