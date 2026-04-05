@@ -72,7 +72,7 @@ export const projects: Project[] = [
     title: "Scenario-Based Compliance Sprint",
     description:
       "A branching compliance course that replaced slide-heavy training with decision-led moments and clearer retention.",
-    image: "/images/project-1.jpg",
+    image: "/portfolio/design-system-overhaul.svg",
     tags: ["Storyline", "Compliance", "Branching"],
     slug: "scenario-based-compliance-sprint",
     category: "Risk and Safety",
@@ -194,7 +194,7 @@ export const projects: Project[] = [
     title: "Modern Onboarding Studio",
     description:
       "A branded onboarding experience combining custom visuals, guided interactions, and a smoother first-week journey.",
-    image: "/images/project-2.jpg",
+    image: "/portfolio/saas-dashboard-redesign.svg",
     tags: ["Onboarding", "Custom Graphics", "UX"],
     slug: "modern-onboarding-studio",
     category: "HR and Culture",
@@ -303,7 +303,7 @@ export const projects: Project[] = [
     title: "Interactive Assessment Lab",
     description:
       "A gamified evaluation flow with meaningful feedback states, progress cues, and LMS-ready delivery.",
-    image: "/images/project-3.jpg",
+    image: "/portfolio/brand-identity-site.svg",
     tags: ["Assessment", "Gamification", "SCORM"],
     slug: "interactive-assessment-lab",
     category: "Testing and Certification",
@@ -407,7 +407,7 @@ export const projects: Project[] = [
     title: "Course Launch Platform",
     description:
       "A conversion-focused course launch experience pairing web delivery support with polished Storyline deployment.",
-    image: "/images/project-4.jpg",
+    image: "/portfolio/mobile-app-experience.svg",
     tags: ["Launch Support", "Landing Page", "LMS"],
     slug: "course-launch-platform",
     category: "Technical Delivery",
@@ -511,7 +511,7 @@ export const projects: Project[] = [
     title: "Sales Readiness Simulator",
     description:
       "A role-play training module designed to sharpen product messaging through realistic customer conversations.",
-    image: "/images/project-5.jpg",
+    image: "/portfolio/web-platform-development.svg",
     tags: ["Simulation", "Sales Enablement", "Coaching"],
     slug: "sales-readiness-simulator",
     category: "Enablement",
@@ -615,7 +615,7 @@ export const projects: Project[] = [
     title: "Accessibility Refresh Program",
     description:
       "A rebuild of legacy modules with cleaner navigation, improved readability, and stronger accessibility support.",
-    image: "/images/project-6.jpg",
+    image: "/portfolio/ecommerce-experience.svg",
     tags: ["Accessibility", "WCAG", "Remediation"],
     slug: "accessibility-refresh-program",
     category: "Inclusive Design",
